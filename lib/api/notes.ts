@@ -1,0 +1,38 @@
+import { api } from './client';
+// ПРАВКА: тепер імпортуємо з правильних файлів
+import { Note } from '@/types/note';
+import { FetchNotesParams, FetchNotesResponse } from '@/types/api';
+
+export const fetchNotes = async ({ 
+  page = 1, 
+  perPage = 6, 
+  search = '', 
+  tag = 'all' 
+}: FetchNotesParams): Promise<FetchNotesResponse> => {
+  const { data } = await api.get<Note[]>('/8module', {
+    params: { 
+      page, 
+      limit: perPage, 
+      search: search || undefined, 
+      tag: tag === 'all' ? undefined : tag 
+    }
+  });
+
+  return { 
+    notes: data, 
+    totalPages: 5 
+  };
+};
+
+export const createNote = async (note: Omit<Note, 'id' | 'createdAt'>): Promise<Note> => {
+  const { data } = await api.post<Note>('/8module', { 
+    ...note, 
+    createdAt: new Date().toISOString() 
+  });
+  return data;
+};
+
+export const fetchNoteById = async (id: string): Promise<Note> => {
+  const { data } = await api.get<Note>(`/8module/${id}`);
+  return data;
+};
