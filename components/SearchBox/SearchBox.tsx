@@ -9,12 +9,14 @@ export default function SearchBox() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // Локальний стейт для миттєвого відображення того, що пише користувач
   const [query, setQuery] = useState(searchParams.get('search') || '');
 
-  // Ефект для "дебаунсу" (щоб не оновлювати URL на кожну літеру)
   useEffect(() => {
     const timeoutId = setTimeout(() => {
+      const currentSearch = searchParams.get('search') || '';
+      
+      if (query === currentSearch) return;
+
       const params = new URLSearchParams(searchParams.toString());
       
       if (query) {
@@ -23,14 +25,13 @@ export default function SearchBox() {
         params.delete('search');
       }
       
-      // Скидаємо сторінку на 1 при пошуку
       params.set('page', '1');
-
+      
       router.push(`${pathname}?${params.toString()}`);
-    }, 500); // затримка 500 мс
+    }, 500); 
 
     return () => clearTimeout(timeoutId);
-  }, [query, pathname, router, searchParams]);
+  }, [query, pathname, router, searchParams]); 
 
   return (
     <input

@@ -1,5 +1,4 @@
 import { api } from './client';
-// ПРАВКА: тепер імпортуємо з правильних файлів
 import { Note } from '@/types/note';
 import { FetchNotesParams, FetchNotesResponse } from '@/types/api';
 

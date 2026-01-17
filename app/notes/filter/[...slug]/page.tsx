@@ -6,7 +6,6 @@ type Props = {
   params: Promise<{ slug: string[] }>;
 };
 
-// Динамічна генерація метаданих
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const filter = slug[0] || 'all';

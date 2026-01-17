@@ -23,13 +23,20 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ 
+  children, 
+  modal 
+}: { 
+  children: React.ReactNode;
+  modal: React.ReactNode; 
+}) {
   return (
     <html lang="en" className={roboto.variable}>
       <body style={{ fontFamily: 'var(--font-roboto)' }}>
         <QueryProvider> 
           <Header />
           {children}
+          {modal} 
           <Footer />
         </QueryProvider>
       </body>
