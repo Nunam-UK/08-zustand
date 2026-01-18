@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createNote } from '@/lib/api';
 import { useRouter } from 'next/navigation';
 import css from './NoteForm.module.css';
+import { NoteData } from '@/types/note';
 
 export default function NoteForm() {
   const { draft, setDraft, clearDraft } = useNoteStore();
@@ -11,7 +12,7 @@ export default function NoteForm() {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: createNote,
+    mutationFn: (data: Omit<NoteData, 'id' | 'createdAt'>) => createNote(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notes'] });
       clearDraft();
@@ -20,7 +21,10 @@ export default function NoteForm() {
   });
 
   return (
-    <form className={css.form} onSubmit={(e) => { e.preventDefault(); mutation.mutate(draft); }}>
+    <form className={css.form} onSubmit={(e) => { 
+      e.preventDefault(); 
+      mutation.mutate(draft);
+    }}>
       <div className={css.formGroup}>
         <label>Title</label>
         <input 

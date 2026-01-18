@@ -19,8 +19,13 @@ export const fetchNotes = async ({
 
   return { 
     notes: data, 
-    totalPages: 5 
+    totalPages: 5
   };
+};
+
+export const fetchNoteById = async (id: string): Promise<NoteData> => {
+  const { data } = await api.get<NoteData>(`/8module/${id}`);
+  return data;
 };
 
 export const createNote = async (note: Omit<NoteData, 'id' | 'createdAt'>): Promise<NoteData> => {
@@ -28,10 +33,5 @@ export const createNote = async (note: Omit<NoteData, 'id' | 'createdAt'>): Prom
     ...note, 
     createdAt: new Date().toISOString() 
   });
-  return data;
-};
-
-export const fetchNoteById = async (id: string): Promise<NoteData> => {
-  const { data } = await api.get<NoteData>(`/8module/${id}`);
   return data;
 };

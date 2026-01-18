@@ -8,14 +8,12 @@ export default function SearchBox() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
   const [query, setQuery] = useState(searchParams.get('search') || '');
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      const currentSearch = searchParams.get('search') || '';
-      
-      if (query === currentSearch) return;
+      const currentUrlSearch = searchParams.get('search') || '';
+      if (query === currentUrlSearch) return;
 
       const params = new URLSearchParams(searchParams.toString());
       
@@ -27,11 +25,11 @@ export default function SearchBox() {
       
       params.set('page', '1');
       
-      router.push(`${pathname}?${params.toString()}`);
-    }, 500); 
+      router.push(`${pathname}?${params.toString()}`, { scroll: false });
+    }, 500);
 
     return () => clearTimeout(timeoutId);
-  }, [query, pathname, router, searchParams]); 
+  }, [query, pathname, router, searchParams]);
 
   return (
     <input

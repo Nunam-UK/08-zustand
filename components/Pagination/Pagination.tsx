@@ -7,15 +7,23 @@ interface Props {
 }
 
 export default function Pagination({ current, total, onChange }: Props) {
+  if (total <= 1) return null;
+
   const pages = Array.from({ length: total }, (_, i) => i + 1);
 
   return (
-    <ul className={css.pagination}>
-      {pages.map((p) => (
-        <li key={p} className={p === current ? css.active : ''} onClick={() => onChange(p)}>
-          <a>{p}</a>
-        </li>
-      ))}
-    </ul>
+    <nav>
+      <ul className={css.pagination}>
+        {pages.map((p) => (
+          <li 
+            key={p} 
+            className={`${css.item} ${p === current ? css.active : ''}`} 
+            onClick={() => onChange(p)}
+          >
+            {p}
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
 }

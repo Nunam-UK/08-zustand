@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { fetchNotes } from '@/lib/api';
 import Notes from './Notes.client';
 
 type Props = {
@@ -13,11 +12,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title,
-    description: `Browse ${filter} notes.`,
+    description: `Browse your ${filter} notes on NoteHub.`,
     openGraph: {
       title,
-      description: `Browse ${filter} notes.`,
-      images: ['https://ac.goit.global/fullstack/react/notehub-og-meta.jpg'],
+      description: `Browse your ${filter} notes on NoteHub.`,
+      url: `https://your-domain.com/notes/filter/${filter}`,
+      images: [{ url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg' }],
     },
   };
 }
@@ -25,11 +25,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function FilterPage({ params }: Props) {
   const { slug } = await params;
   const currentFilter = slug[0] || 'all';
-  const { notes } = await fetchNotes({ tag: currentFilter });
 
   return (
     <main>
-      <Notes notes={notes} initialFilter={currentFilter} />
+      <Notes initialFilter={currentFilter} />
     </main>
   );
 }
