@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { fetchNoteById } from '@/lib/api';
+import NoteDetails from './NoteDetails.client'; 
 import css from './NoteDetails.module.css';
 import Link from 'next/link';
 import { NoteData } from '@/types/note';
@@ -20,17 +21,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function NoteDetailPage({ params }: Props) {
   const { id } = await params;
+  
+  if (!id || id === 'undefined') return null;
   let note: NoteData | null = null;
 
-  if (id && id !== 'undefined') {
-    try {
-      note = await fetchNoteById(id);
-    } catch (e) {
-      console.error('Page fetch error:', e);
-    }
-  }
-
-  if (!note) {
+  try {
+    note = await fetchNoteById(id);
+  } catch (e) {
     return (
       <main className={css.main}>
         <div className={css.container}>
@@ -40,22 +37,5 @@ export default async function NoteDetailPage({ params }: Props) {
       </main>
     );
   }
-
-  return (
-    <main className={css.main}>
-      <div className={css.container}>
-        <div className={css.item}>
-          <Link href="/notes/filter/all" className={css.backBtn}>← Back to list</Link>
-          <div className={css.header}>
-            <h2>{note.title}</h2>
-            <span className={css.tag}>{note.tag}</span>
-          </div>
-          <p className={css.content}>{note.content}</p>
-          <div className={css.date}>
-            Created: {note.createdAt ? new Date(note.createdAt).toLocaleDateString() : 'N/A'}
-          </div>
-        </div>
-      </div>
-    </main>
-  );
+  return <NoteDetails note={note} />;
 }
