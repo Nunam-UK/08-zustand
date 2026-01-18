@@ -1,4 +1,4 @@
-import { fetchNoteById } from '@/lib/api/notes';
+import { fetchNoteById } from '@/lib/api';
 import Modal from '@/components/Modal/Modal';
 
 export default async function NoteModal({ params }: { params: { id?: string } }) {

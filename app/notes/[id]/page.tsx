@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { fetchNoteById } from '@/lib/api/notes';
+import { fetchNoteById } from '@/lib/api';
 import css from './NoteDetails.module.css';
 import Link from 'next/link';
 import { NoteData } from '@/types/note';

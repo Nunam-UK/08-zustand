@@ -1,7 +1,7 @@
 "use client"; 
 
 import { useEffect, useState } from 'react';
-import { fetchNoteById } from '@/lib/api/notes';
+import { fetchNoteById } from '@/lib/api';
 import type {  NoteData } from '@/types/note'
 import { useParams, useRouter } from 'next/navigation';
 
