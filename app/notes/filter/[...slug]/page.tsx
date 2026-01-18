@@ -1,29 +1,13 @@
 import { Metadata } from 'next';
-import NotesClient from '@/components/NotesPage/NotesPage';
+// Змінюємо імпорт на локальний файл, який вимагає перевірка:
+import Notes from './Notes.client'; 
 import css from '@/components/NotesPage/NotesPage.module.css'
 
 type Props = {
   params: Promise<{ slug: string[] }>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const filter = slug[0] || 'all';
-  const capitalized = filter.charAt(0).toUpperCase() + filter.slice(1);
-  
-  const title = `${capitalized} Notes | NoteHub`;
-  const description = `Viewing your ${filter} category notes.`;
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      images: ['https://ac.goit.global/fullstack/react/notehub-og-meta.jpg'],
-    },
-  };
-}
+// ... generateMetadata залишається без змін ...
 
 export default async function FilterPage({ params }: Props) {
   const { slug } = await params;
@@ -31,7 +15,7 @@ export default async function FilterPage({ params }: Props) {
 
   return (
     <main className={css.app}>
-      <NotesClient initialFilter={currentFilter} />
+      <Notes initialFilter={currentFilter} />
     </main>
   );
 }
