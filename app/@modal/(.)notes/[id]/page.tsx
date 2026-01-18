@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import { fetchNoteById } from '@/lib/api/notes';
-import { Note } from '@/types/note';
+import type {  NoteData } from '@/types/note-schema'
 import { useParams, useRouter } from 'next/navigation';
 
 export default function NoteModal() {
   const params = useParams();
   const router = useRouter();
-  const [note, setNote] = useState<Note | null>(null);
+  const [note, setNote] = useState<NoteData | null>(null);
   const id = params?.id as string;
 
   useEffect(() => {

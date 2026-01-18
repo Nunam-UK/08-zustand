@@ -1,12 +1,12 @@
 import Link from 'next/link';
-import { Note } from '@/types/note';
+import { NoteData } from '@/types/note-schema';
 import css from './NoteList.module.css';
 
-interface NoteWithId extends Note {
+interface NoteWithId extends NoteData {
   _id?: string;
 }
 
-export default function NoteList({ notes }: { notes: Note[] }) {
+export default function NoteList({ notes }: { notes: NoteData[] }) {
   return (
     <ul className={css.list}>
       {notes.map((note, index) => {

@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { fetchNoteById } from '@/lib/api/notes';
 import css from './NoteDetails.module.css';
 import Link from 'next/link';
-import { Note } from '@/types/note';
+import { NoteData } from '@/types/note-schema';
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function NoteDetailPage({ params }: Props) {
   const { id } = await params;
-  let note: Note | null = null;
+  let note: NoteData | null = null;
 
   if (id && id !== 'undefined') {
     try {

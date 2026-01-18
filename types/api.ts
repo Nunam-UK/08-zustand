@@ -1,4 +1,4 @@
-import { Note } from './note';
+import { NoteData } from './note-schema';
 
 export interface FetchNotesParams {
   page?: number;
@@ -8,6 +8,6 @@ export interface FetchNotesParams {
 }
 
 export interface FetchNotesResponse {
-  notes: Note[];
+  notes: NoteData[];
   totalPages: number;
 }

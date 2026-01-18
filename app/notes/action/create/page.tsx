@@ -1,24 +1,24 @@
-import NoteForm from '@/components/NoteForm/NoteForm';
-import type { Metadata } from 'next';
+"use client"; 
+
+import { Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import css from '@/components/NoteForm/NoteForm.module.css';
 
-export const metadata: Metadata = {
-  title: 'Create note | NoteHub',
-  description: 'Add a new note to your personal collection.',
-  openGraph: {
-    title: 'Create note | NoteHub',
-    description: 'Add a new note to your personal collection.',
-    url: 'https://your-domain.vercel.app/notes/action/create',
-    images: ['https://ac.goit.global/fullstack/react/notehub-og-meta.jpg'],
-  },
-};
+const NoteForm = dynamic(() => import('@/components/NoteForm/NoteForm'), {
+  ssr: false,
+  loading: () => <p>Loading form...</p>,
+});
 
 export default function CreateNotePage() {
   return (
     <main className={css.main}>
       <div className={css.container}>
         <h1 className={css.title}>Create note</h1>
-        <NoteForm />
+        
+        
+        <Suspense fallback={<p>Loading...</p>}>
+          <NoteForm />
+        </Suspense>
       </div>
     </main>
   );

@@ -1,5 +1,5 @@
 import { api } from './client';
-import { Note } from '@/types/note';
+import { NoteData } from '@/types/note-schema';
 import { FetchNotesParams, FetchNotesResponse } from '@/types/api';
 
 export const fetchNotes = async ({ 
@@ -8,7 +8,7 @@ export const fetchNotes = async ({
   search = '', 
   tag = 'all' 
 }: FetchNotesParams): Promise<FetchNotesResponse> => {
-  const { data } = await api.get<Note[]>('/8module', {
+  const { data } = await api.get<NoteData[]>('/8module', {
     params: { 
       page, 
       limit: perPage, 
@@ -23,15 +23,15 @@ export const fetchNotes = async ({
   };
 };
 
-export const createNote = async (note: Omit<Note, 'id' | 'createdAt'>): Promise<Note> => {
-  const { data } = await api.post<Note>('/8module', { 
+export const createNote = async (note: Omit<NoteData, 'id' | 'createdAt'>): Promise<NoteData> => {
+  const { data } = await api.post<NoteData>('/8module', { 
     ...note, 
     createdAt: new Date().toISOString() 
   });
   return data;
 };
 
-export const fetchNoteById = async (id: string): Promise<Note> => {
-  const { data } = await api.get<Note>(`/8module/${id}`);
+export const fetchNoteById = async (id: string): Promise<NoteData> => {
+  const { data } = await api.get<NoteData>(`/8module/${id}`);
   return data;
 };
