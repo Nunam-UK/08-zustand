@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { fetchNoteById } from '@/lib/api/notes';
-import type {  NoteData } from '@/types/note-schema'
+import type {  NoteData } from '@/types/note'
 import { useParams, useRouter } from 'next/navigation';
 
 export default function NoteModal() {

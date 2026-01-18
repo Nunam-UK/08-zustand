@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { NoteData } from '@/types/note-schema';
+import { NoteData } from '@/types/note';
 import css from './NoteList.module.css';
 
 interface NoteWithId extends NoteData {

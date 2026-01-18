@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { fetchNoteById } from '@/lib/api/notes';
 import css from './NoteDetails.module.css';
 import Link from 'next/link';
-import { NoteData } from '@/types/note-schema';
+import { NoteData } from '@/types/note';
 
 type Props = {
   params: Promise<{ id: string }>;

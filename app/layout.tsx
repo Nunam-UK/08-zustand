@@ -33,7 +33,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={roboto.variable}>
       <body style={{ fontFamily: 'var(--font-roboto)' }}>
-        {/* Використовуємо саме TanStackProvider для всього додатка */}
         <TanStackProvider> 
           <Header />
           <main>

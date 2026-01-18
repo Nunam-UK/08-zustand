@@ -1,5 +1,5 @@
 import { api } from './client';
-import { NoteData } from '@/types/note-schema';
+import { NoteData } from '@/types/note';
 import { FetchNotesParams, FetchNotesResponse } from '@/types/api';
 
 export const fetchNotes = async ({ 
