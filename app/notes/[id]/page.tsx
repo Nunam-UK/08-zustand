@@ -11,11 +11,35 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
+  
   try {
     const note = await fetchNoteById(id);
-    return { title: `${note.title} | NoteHub` };
+    const title = `${note.title} | NoteHub`;
+    const description = note.content.slice(0, 150) || 'View note details on NoteHub';
+
+    return {
+      title,
+      description,
+      openGraph: {
+        title,
+        description,
+        url: `https://your-domain.com/notes/${id}`, 
+        type: 'article',
+        images: [
+          {
+            url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
+            width: 1200,
+            height: 630,
+            alt: note.title,
+          },
+        ],
+      },
+    };
   } catch {
-    return { title: 'Note Details' };
+    return { 
+      title: 'Note Details',
+      description: 'The requested note could not be found.'
+    };
   }
 }
 
@@ -27,7 +51,7 @@ export default async function NoteDetailPage({ params }: Props) {
 
   try {
     note = await fetchNoteById(id);
-  } catch (e) {
+  } catch {
     return (
       <main className={css.main}>
         <div className={css.container}>
@@ -37,5 +61,6 @@ export default async function NoteDetailPage({ params }: Props) {
       </main>
     );
   }
+  
   return <NoteDetails note={note} />;
 }
