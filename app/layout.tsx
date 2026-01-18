@@ -2,8 +2,8 @@ import { Roboto } from 'next/font/google';
 import type { Metadata } from 'next';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
-import QueryProvider from '@/providers/QueryProvider';
 import './globals.css';
+import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
 
 const roboto = Roboto({
   weight: ['400', '500', '700'],
@@ -33,12 +33,15 @@ export default function RootLayout({
   return (
     <html lang="en" className={roboto.variable}>
       <body style={{ fontFamily: 'var(--font-roboto)' }}>
-        <QueryProvider> 
+        {/* Використовуємо саме TanStackProvider для всього додатка */}
+        <TanStackProvider> 
           <Header />
-          {children}
+          <main>
+            {children}
+          </main>
           {modal} 
           <Footer />
-        </QueryProvider>
+        </TanStackProvider>
       </body>
     </html>
   );
