@@ -35,7 +35,7 @@ import css from './Modal.module.css';
 
 interface ModalProps {
   children: React.ReactNode;
-  onClose?: () => void; // Додаємо цей рядок! Питальний знак означає, що пропс необов'язковий
+  onClose?: () => void; 
 }
 
 export default function Modal({ children, onClose }: ModalProps) {
@@ -52,7 +52,6 @@ export default function Modal({ children, onClose }: ModalProps) {
   return (
     <div className={css.backdrop} onClick={handleClose}>
       <div className={css.modal} onClick={(e) => e.stopPropagation()}>
-        {/* Кнопка "Хрестик" для закриття (вимога викладача) */}
         <button className={css.closeBtn} onClick={handleClose}>&times;</button>
         {children}
       </div>
